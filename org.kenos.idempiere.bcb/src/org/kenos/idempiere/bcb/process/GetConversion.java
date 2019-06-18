@@ -123,11 +123,19 @@ public class GetConversion extends SvrProcess
 							Timestamp date = TimeUtil.addDays (TextUtil.stringToTime (cols[0], "dd/MM/yyyy"), 1);
 							BigDecimal rate = new BigDecimal (cols[4].replace(".", "").replace(",", "."));
 							
+							//	Ajusta conversões futuras
+							String sql = "UPDATE C_Conversion_Rate SET ValidTo=ValidFrom" 
+											+ " WHERE C_Currency_ID=" + MCurrency.get (getCtx(), currency).getC_Currency_ID()
+											+ " AND C_Currency_ID_To=" + MCurrency.get (getCtx(), "BRL").getC_Currency_ID()
+											+ " AND ValidTo>=" + DB.TO_DATE (date)
+											+ " AND AD_Client_ID=0 AND AD_Org_ID=0";
+							DB.executeUpdate (sql, null);
+							
 							//	Adiciona a conversão da moeda
 							MConversionRate.setRate (currency, "BRL", date, rate);
 							
 							//	Ajusta a conversão para valer até 7 dias
-							String sql = "UPDATE C_Conversion_Rate SET ValidTo=" + DB.TO_DATE (TimeUtil.addDays (date, 7)) 
+							sql = "UPDATE C_Conversion_Rate SET ValidTo=" + DB.TO_DATE (TimeUtil.addDays (date, 7)) 
 											+ " WHERE C_Currency_ID=" + MCurrency.get (getCtx(), currency).getC_Currency_ID()
 											+ " AND C_Currency_ID_To=" + MCurrency.get (getCtx(), "BRL").getC_Currency_ID()
 											+ " AND ValidFrom=ValidTo"
