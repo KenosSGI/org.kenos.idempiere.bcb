@@ -1,7 +1,0 @@
-
-syntax: regexp
-^org\.kenos\.idempiere\.bcb/bin$
-syntax: regexp
-^org\.kenos\.idempiere\.bcb/target$
-syntax: regexp
-^pom\.xml$
