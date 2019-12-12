@@ -12,8 +12,8 @@
 	<artifactId>org.kenos.idempiere.bcb.parent</artifactId>
 	<packaging>pom</packaging>
 	<modules>
-		<module>${LBR-FOLDER}/org.kenos.idempiere.lbr.base</module>
-		<module>${LBR-FOLDER}/org.kenos.idempiere.lbr.p2.targetplatform</module>
+		<module>${UPSTREAM-FOLDER}/org.kenos.idempiere.lbr.base</module>
+		<module>${UPSTREAM-FOLDER}/org.kenos.idempiere.lbr.p2.targetplatform</module>
 		<module>org.kenos.idempiere.bcb</module>
 	</modules>
 </project>
